@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low-poly Goat
+* source:	https://sketchfab.com/3d-models/low-poly-goat-e08bb2e734004870b1ed4c21f111a854
+* author:	Zafflex (https://sketchfab.com/Zafflex)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low-poly Goat" (https://sketchfab.com/3d-models/low-poly-goat-e08bb2e734004870b1ed4c21f111a854) by Zafflex (https://sketchfab.com/Zafflex) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

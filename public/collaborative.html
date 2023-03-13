@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Collaborative</title>
+        <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+
+        <script src="js/game.js"></script>
+        <script src="js/wander.js"></script>
+        <script src="js/collect-item-collaborative.js"></script>
+        <script src="js/startExperience.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <!-- <script src="js/collaborative-experience-manager.js"></script> -->
+        <script src="js/collaborative.js"></script>
+
+        <link rel="stylesheet" href="style-guide.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+        <div id="user-gesture-overlay">
+            <div class="center">
+                <p id="instructions">Work together to catch all the chickens!</p>
+                <button id="user-gesture-button" onclick="startExperience();">Start</button>
+                <div id="game-over-text" class="text-center">
+                    <h2>Game over</h2>
+                    <p id="game-over-p1">You collected _ chickens in _</p>
+                    <a type="button" class ="btn btn-outline-dark" href="index.html">Play Again</a>
+                </div>
+            </div>
+        </div>
+
+        <a-scene start-experience collaborative renderer="antialis:true; colorManagement:true; physicallyCorrectLights:true;">
+
+            <a-assets timeout="10000">
+                <!-- Animal models -->
+                <a-asset-item id="chicken-file" response-type="arraybuffer" src="assets/low_poly_chicken/scene.gltf"></a-asset-item>
+                <a-asset-item id="goose-file" response-type="arraybuffer" src="assets/goose_low_poly/scene.gltf"></a-asset-item>
+                <a-asset-item id="goat-file" response-type="arraybuffer" src="assets/low-poly_goat/scene.gltf"></a-asset-item>
+
+                <!-- Sounds -->
+                <audio id="ambient-music" src="assets/ambient.mp3" preload="auto" crossorigin="anonymous"></audio>
+                <audio id="chicken-sound-file" src="assets/chicken.mp3" preload="auto" crossorigin="anonymous"></audio>
+                <audio id="goose-sound-file" src="assets/goose.mp3" preload="auto" crossorigin="anonymous"></audio>
+                <audio id="goat-sound-file" src="assets/goat.mp3" preload="auto" crossorigin="anonymous"></audio>
+            </a-assets>
+
+            <!-- Camera -->
+            <a-entity id="camera" camera wasd-controls look-controls position="0 1.6 0">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+            </a-entity>
+
+            <!-- Lights -->
+            <a-entity light="type: ambient; color: #CCC"></a-entity>
+            <a-entity light="type:directional; castShadow:true; intensity:0.2; target:#directionaltarget;" position="0 2.5 1.5"  rotation="-45 0 180">
+                <a-entity id="directionaltarget" position="0 -2 -6"></a-entity>
+            </a-entity>
+
+            <!-- Sounds -->
+            <a-entity id="ambient" class="ambient-music" sound="src:#ambient-music; autoplay:true; loop:true; positional:false; volume:0.1;"></a-entity>
+            <a-entity id="chicken-sound" sound="src:#chicken-sound-file;"></a-entity>
+            <a-entity id="goose-sound" sound="src:#goose-sound-file;"></a-entity>
+            <a-entity id="goat-sound" sound="src:#goat-sound-file;"></a-entity>
+            
+            <!-- Floor -->
+            <a-entity   id="plane"
+                        position="0 0 0"
+                        rotation="-90 0 0"
+                        scale="30 30 30"
+                        geometry="primitive:plane; width:1.0; height:1.0;"
+                        material="color:rgb(180,180,180);">
+            </a-entity>
+
+        </a-scene>
+
+    </body>
+
+</html>
