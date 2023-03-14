@@ -7,45 +7,44 @@ AFRAME.registerComponent('experience-manager', {
 
             document.querySelector('#user-gesture-button').addEventListener('click', function(){
                 console.log("game started");
-                socket.emit('gametart');
+                socket.emit('game-start');
             });
 
-            // let interactiveItems = document.querySelectorAll('.interactive');
+            document.querySelector('#see-score-button').addEventListener('click', function(){
+                socket.emit('get-score-collab', numChickensCollected);
+                
+            });
 
-            // for(let i = 0; i < interactiveItems.length; i++)
-
-            //     interactiveItems[i].addEventListener('click', function(){
-                    
-            //         // if the object is within a set distance of the camera
-            //         if(objDistance(interactiveItems[i], 3.5)){
-            //             // if the object is a chicken
-            //             if(interactiveItems[i].className=="interactive chickens"){
-            //                 // chicken sound
-            //                 document.querySelector('#chicken-sound').components.sound.playSound();
-            //                 numChickensCollected += 1;
-            //                 console.log("You caught a chicken!");
-            //                 // remove the object from the scene
-            //                 interactiveItems[i].parentNode.removeChild(interactiveItems[i]);
-            //             }
-            //             // else if the object is a goose
-            //             else if(interactiveItems[i].className=="interactive geese"){
-            //                 // goose sound
-            //                 document.querySelector('#goose-sound').components.sound.playSound();
-            //             }
-            //             // else (goat)
-            //             else {
-            //                 // goat sound
-            //                 document.querySelector('#goat-sound').components.sound.playSound();
-            //             }
-            //         }
-            //     });
 
         });
 
-        //listen to event from server
-        socket.on('initial-spawn', (data) => {
+        // start the game
+        socket.on('start-game', (data) => {
+            // hide overlay/button
+            document.querySelector('#user-gesture-button').style.display = 'none';
+            document.querySelector('#instructions').style.display = 'none';
+            document.querySelector('#user-gesture-overlay').style.display = 'none';
             
+            startTime = document.querySelector('a-scene').time;
+
+            // find all, loop through, and start ambient sounds
+            const ambientSounds = document.querySelectorAll('.ambient-music');
+            ambientSounds.forEach(function(soundEntity){
+                soundEntity.components.sound.playSound();
+            });
         });
+
+        socket.on('send-score-collab', (data) =>{
+            socket.emit('game-end-collab', {num1:data, num2:numChickensCollected})
+        });
+
+        // end game
+        socket.on('display-score-collab', (data) => {
+            document.querySelector('#score-h').innerHTML = "Together you collected " + data + " chickens!";
+            document.querySelector('#game-over-text').style.display = 'none';
+            document.querySelector('#score-text').style.display = 'block';
+        });
+
     }
 
 

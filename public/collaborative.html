@@ -11,8 +11,8 @@
         <script src="js/startExperience.js"></script>
 
         <script src="/socket.io/socket.io.js"></script>
-        <!-- <script src="js/collaborative-experience-manager.js"></script> -->
         <script src="js/collaborative.js"></script>
+        <script src="js/collaborative-experience-manager.js"></script>
 
         <link rel="stylesheet" href="style-guide.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -23,16 +23,21 @@
         <div id="user-gesture-overlay">
             <div class="center">
                 <p id="instructions">Work together to catch all the chickens!</p>
-                <button id="user-gesture-button" onclick="startExperience();">Start</button>
+                <button id="user-gesture-button">Start</button>
+
                 <div id="game-over-text" class="text-center">
-                    <h2>Game over</h2>
-                    <p id="game-over-p1">You collected _ chickens in _</p>
+                    <h2 id="game-over-h">Game over</h2>
+                    <a id="see-score-button" type="button" class ="btn btn-outline-dark">See score</a>
+                </div>
+
+                <div id="score-text" class="text-center">
+                    <h2 id="score-h">You two collected _ chickens!</h2>
                     <a type="button" class ="btn btn-outline-dark" href="index.html">Play Again</a>
                 </div>
             </div>
         </div>
 
-        <a-scene start-experience collaborative renderer="antialis:true; colorManagement:true; physicallyCorrectLights:true;">
+        <a-scene start-experience collaborative experience-manager renderer="antialis:true; colorManagement:true; physicallyCorrectLights:true;">
 
             <a-assets timeout="10000">
                 <!-- Animal models -->

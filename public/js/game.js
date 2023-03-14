@@ -1,6 +1,7 @@
 let numChickens = 0;
 let numChickensCollected = 0;
- 
+
+
  // see if the object is within a desired distance from the camera
 const objDistance = function(obj, distance){ 
     let objPos = obj.getAttribute('position');
@@ -17,6 +18,8 @@ const objDistance = function(obj, distance){
     return false;
     
 }
+
+
 
 // create a new animal entity of random animal type (chicken, goose, or goat)
 const spawnAnimal = function(mode){
@@ -50,7 +53,7 @@ const spawnAnimal = function(mode){
         newAnimal.setAttribute('gltf-model', '#goat-file');
         newAnimal.setAttribute('wander', 'countValue:1200;');
 
-        console.log("goat spawned");
+        //console.log("goat spawned");
     }
     // if 1 or 2, create a goose
     else if (type == 1 || type == 2){
@@ -59,7 +62,7 @@ const spawnAnimal = function(mode){
         newAnimal.setAttribute('gltf-model', '#goose-file');
         newAnimal.setAttribute('wander', '');
 
-        console.log("goose spawned");
+        //console.log("goose spawned");
     }
     // otherwise, create chicken
     else{
@@ -68,7 +71,7 @@ const spawnAnimal = function(mode){
         newAnimal.setAttribute('gltf-model', '#chicken-file');
         newAnimal.setAttribute('wander', '');
 
-        console.log("chicken spawned");
+        //console.log("chicken spawned");
         numChickens += 1;
     }
     

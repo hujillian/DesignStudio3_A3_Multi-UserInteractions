@@ -35,6 +35,10 @@
   #game-over-text{
     display: none;
   }
+
+  #score-text{
+    display: none;
+  }
   
   #user-gesture-button {
     display: none;

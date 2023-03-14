@@ -9,20 +9,3 @@ AFRAME.registerComponent('start-experience', {
         document.querySelector('#user-gesture-button').style.display = 'block';
     }
 });
-
-// this function is called by enter experience button click
-// objectives: remove overlay and start ambient (autoplay) sounds
-const startExperience = function(){
-    // hide overlay/button
-    document.querySelector('#user-gesture-button').style.display = 'none';
-    document.querySelector('#instructions').style.display = 'none';
-    document.querySelector('#user-gesture-overlay').style.display = 'none';
-    
-    startTime = document.querySelector('a-scene').time;
-
-    // find all, loop through, and start ambient sounds
-    const ambientSounds = document.querySelectorAll('.ambient-music');
-    ambientSounds.forEach(function(soundEntity){
-        soundEntity.components.sound.playSound();
-    });
-};

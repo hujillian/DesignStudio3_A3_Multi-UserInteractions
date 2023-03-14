@@ -26,33 +26,30 @@ io.on('connection', (socket) =>{
         console.log(socket.id + " is disconnected.");
     });
 
-    // our custom websocket events
-    socket.on('game-start', (data =>{
-        // hide overlay/button
-        document.querySelector('#user-gesture-button').style.display = 'none';
-        document.querySelector('#instructions').style.display = 'none';
-        document.querySelector('#user-gesture-overlay').style.display = 'none';
-        
-        startTime = document.querySelector('a-scene').time;
-
-        // find all, loop through, and start ambient sounds
-        const ambientSounds = document.querySelectorAll('.ambient-music');
-        ambientSounds.forEach(function(soundEntity){
-            soundEntity.components.sound.playSound();
-        });
-    }));
     
-    socket.on('caught-chicken', (data =>{
-        console.log("Caught a chicken");
-        io.emit('chicken-caught', {r:255, g:0, b:0}) // instead of having the colour, we can include any type of data
+    socket.on('game-start', (data =>{
+        // start the game for both users at the same time
+        io.emit('start-game', {});
     }));
 
-    socket.on('blue', (data =>{
-        console.log("blue event received.");
-        io.emit('color_change', {r:0, g:0, b:255})
+    socket.on('get-score-collab', (data =>{
+        socket.broadcast.emit('send-score-collab', data);
     }));
+
+    socket.on('game-end-collab', (data =>{
+        socket.broadcast.emit('display-score-collab', (data.num1 + data.num2));
+    }));
+
+    socket.on('get-score-comp', (data =>{
+        socket.broadcast.emit('send-score-comp', data);
+    }));
+
+    socket.on('game-end-comp', (data =>{
+        socket.broadcast.emit('display-score-comp', (data));
+    }));
+
+    
 });
-// socket emit functionalities/uses: https://socket.io/docs/v4/emit-cheatsheet/
 
 // set middleware
 app.use(express.static(__dirname + '/public'));

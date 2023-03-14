@@ -20,22 +20,8 @@ AFRAME.registerComponent('competitive',{
 
     tick: function (time, timeDelta) {
         // if 1 minute has passed
-        if ((time-startTime) >= 60000 && game){
+        if ((time - startTime) >= 30000 && game){
             console.log("game over");
-
-            // Winner is decided based on the points
-            if(user1Points == user2Points){
-                document.querySelector('#game-over-h').innerHTML = "Game over: Tie";
-            }
-            else if(user1Points > user2Points){
-                document.querySelector('#game-over-h').innerHTML = "Game over: User1 Wins!";
-            }
-            else{
-                document.querySelector('#game-over-h').innerHTML = "Game over: User2 Wins!";
-            }
-
-            document.querySelector('#game-over-p1').innerHTML = "User1 Score: " + user1Points;
-            document.querySelector('#game-over-p2').innerHTML = "User2 Score: " + user2Points;
 
             document.querySelector('#user-gesture-overlay').style.display = 'block';
             document.querySelector('#game-over-text').style.display = 'block';
